@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'es.patriorigen.app'
-    compileSdk 37
+    compileSdk 36
 
     defaultConfig {
         applicationId 'es.patriorigen.app'
@@ -16,5 +16,5 @@ android {
 }
 
 dependencies {
-    implementation 'org.mozilla.geckoview:geckoview:158.0.20261021001945'
+    implementation 'org.mozilla.geckoview:geckoview:150.0.20260511200624'
 }
