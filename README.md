@@ -38,13 +38,25 @@ Este proyecto es un cliente Android independiente y no está afiliado ni respald
 
 ## Compilar
 
-El repositorio incluye un flujo de GitHub Actions para generar la APK. Para obtener una compilación desde el código:
+### Desde GitHub Actions
 
 1. Abre la pestaña **Actions** del repositorio.
 2. Selecciona **Build APK** y pulsa **Run workflow**.
-3. Al terminar, descarga el artefacto de la ejecución.
+3. Cuando termine la ejecución, abre sus artefactos y descarga **Patriorigen-gecko-arm64-apk**.
 
-La APK publicada en **Releases** es la descarga recomendada para instalar la aplicación.
+El flujo compila una APK de depuración y la guarda como artefacto de la ejecución. Ejecutarlo manualmente no publica una versión en **Releases**. La APK de **[Releases](https://github.com/Lim4/patriorigen-geckoview/releases/latest)** es la opción recomendada para instalar la aplicación.
+
+### En local
+
+Se necesita **JDK 17**, **Gradle 8.11.1** y Android SDK con **Android 36** y **Build Tools 36.0.0**. En la raíz del repositorio, prepara el icono a partir del recurso incluido y compila:
+
+```powershell
+New-Item -ItemType Directory -Force app/src/main/res/drawable-nodpi | Out-Null
+[IO.File]::WriteAllBytes('app/src/main/res/drawable-nodpi/ic_launcher_foreground.png', [Convert]::FromBase64String((Get-Content -Raw app/src/main/assets/patriorigen-icon.png.b64)))
+gradle --no-daemon assembleDebug
+```
+
+La APK se genera en `app/build/outputs/apk/debug/app-debug.apk`. Es una compilación de depuración y solo incluye la arquitectura **ARM64**.
 
 ## Licencias
 
