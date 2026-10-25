@@ -31,8 +31,8 @@ jobs:
         run: sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
       - name: Prepare original app icon
         run: |
-          mkdir -p app/src/main/res/mipmap-nodpi
-          base64 --decode app/src/main/assets/patriorigen-icon.png.b64 > app/src/main/res/mipmap-nodpi/ic_launcher.png
+          mkdir -p app/src/main/res/drawable-nodpi
+          base64 --decode app/src/main/assets/patriorigen-icon.png.b64 > app/src/main/res/drawable-nodpi/ic_launcher_foreground.png
       - name: Build debug APK
         run: gradle --no-daemon assembleDebug
       - name: Upload APK
