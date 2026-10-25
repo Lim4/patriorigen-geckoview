@@ -29,12 +29,16 @@ jobs:
           packages: ''
       - name: Install Android SDK packages
         run: sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+      - name: Prepare original app icon
+        run: |
+          mkdir -p app/src/main/res/mipmap-nodpi
+          base64 --decode app/src/main/assets/patriorigen-icon.png.b64 > app/src/main/res/mipmap-nodpi/ic_launcher.png
       - name: Build debug APK
         run: gradle --no-daemon assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: PatriOrigen-debug-apk
+          name: Patriorigen-gecko-arm64-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
