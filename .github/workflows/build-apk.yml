@@ -35,11 +35,16 @@ jobs:
           base64 --decode app/src/main/assets/patriorigen-icon.png.b64 > app/src/main/res/drawable-nodpi/ic_launcher_foreground.png
       - name: Build debug APK
         run: gradle --no-daemon assembleDebug
-      - name: Publish GitHub Release
-        if: github.event_name == 'push' && github.event.head_commit.message == 'Publish GitHub Release v1.1.0'
+      - name: Replace release APK asset with the requested filename
+        if: github.event_name == 'push' && github.event.head_commit.message == 'Correct release asset filename'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create v1.1.0 app/build/outputs/apk/debug/app-debug.apk --title "Patriorigen-gecko v1.1.0" --notes "APK ARM64 con el icono original de Patriorigen. Requiere Android 8.0 o posterior."
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk Patriorigen-gecko.apk
+          gh release upload v1.1.0 Patriorigen-gecko.apk --clobber
+          if gh release view v1.1.0 --json assets --jq '.assets[].name' | grep -qx 'app-debug.apk'; then
+            gh release delete-asset v1.1.0 app-debug.apk --yes
+          fi
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
