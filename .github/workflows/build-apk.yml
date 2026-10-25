@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -35,16 +37,6 @@ jobs:
           base64 --decode app/src/main/assets/patriorigen-icon.png.b64 > app/src/main/res/drawable-nodpi/ic_launcher_foreground.png
       - name: Build debug APK
         run: gradle --no-daemon assembleDebug
-      - name: Replace release APK asset with the requested filename
-        if: github.event_name == 'push' && github.event.head_commit.message == 'Correct release asset filename'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          cp app/build/outputs/apk/debug/app-debug.apk Patriorigen-gecko.apk
-          gh release upload v1.1.0 Patriorigen-gecko.apk --clobber
-          if gh release view v1.1.0 --json assets --jq '.assets[].name' | grep -qx 'app-debug.apk'; then
-            gh release delete-asset v1.1.0 app-debug.apk --yes
-          fi
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
@@ -52,3 +44,25 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
+
+  publish:
+    needs: build
+    if: github.event_name == 'push' && github.event.head_commit.message == 'Correct release asset filename'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download built APK
+        uses: actions/download-artifact@v4
+        with:
+          name: Patriorigen-gecko-arm64-apk
+          path: dist
+      - name: Replace release APK asset with the requested filename
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp dist/app-debug.apk Patriorigen-gecko.apk
+          gh release upload v1.1.0 Patriorigen-gecko.apk --clobber
+          if gh release view v1.1.0 --json assets --jq '.assets[].name' | grep -qx 'app-debug.apk'; then
+            gh release delete-asset v1.1.0 app-debug.apk --yes
+          fi
