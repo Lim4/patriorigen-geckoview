@@ -1,11 +1,11 @@
-# PatriOrigen
+# Patriorigen-gecko
 
-Aplicación Android de pantalla completa que abre https://patriorigen.es con GeckoView de Mozilla.
+Aplicación Android que abre https://patriorigen.es con GeckoView de Mozilla. Incluye el icono original de Patriorigen y permisos de cámara/micrófono.
 
 ## Descargar la APK
 
-Cada compilación de GitHub Actions publica el archivo `PatriOrigen-debug-apk`. En el repositorio, abre **Actions**, selecciona la ejecución completada más reciente y descarga el artefacto.
+Cada compilación de GitHub Actions publica el artefacto `Patriorigen-gecko-arm64-apk`. En el repositorio, abre **Actions**, selecciona la ejecución completada más reciente y descarga el artefacto.
 
 También puedes iniciar una compilación manual desde **Actions → Build APK → Run workflow**.
 
-La APK generada es de depuración y se puede instalar en un dispositivo Android habilitando la instalación desde esa fuente.
+La APK está optimizada para Android ARM64 (la arquitectura de la mayoría de móviles actuales) y requiere Android 8.0 o posterior. Es una APK de depuración. Para instalar esta versión encima de la anterior, desinstala primero la anterior, ya que las compilaciones de GitHub Actions usan firmas de depuración distintas.
