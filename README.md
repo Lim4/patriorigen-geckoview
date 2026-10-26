@@ -48,7 +48,7 @@ El flujo compila una APK de depuración y la guarda como artefacto de la ejecuci
 
 ### En local
 
-Se necesita **JDK 17**, **Gradle 8.11.1** y Android SDK con **Android 36** y **Build Tools 36.0.0**. En la raíz del repositorio, prepara el icono a partir del recurso incluido y compila:
+Se necesita **JDK 17**, **Gradle 8.11.1** y Android SDK Platform **36 (API level 36, correspondiente a Android 16)**, además de **Android SDK Build-Tools 36.0.0**. En la raíz del repositorio, prepara el icono a partir del recurso incluido y compila:
 
 ```powershell
 New-Item -ItemType Directory -Force app/src/main/res/drawable-nodpi | Out-Null
