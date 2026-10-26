@@ -62,4 +62,4 @@ La APK se genera en `app/build/outputs/apk/debug/app-debug.apk`. Es una compilac
 
 El código original de la aplicación desarrollado para este proyecto se distribuye bajo la **licencia MIT**; consulta el archivo [LICENSE](LICENSE). Esta licencia se refiere al código y la documentación originales de este proyecto.
 
-No concede derechos sobre el nombre, la marca, el logotipo, el icono ni los contenidos de Patriorigen —incluido el recurso `app/src/main/assets/patriorigen-icon.png.b64`—, que pertenecen a sus respectivos titulares. GeckoView se distribuye bajo la **Mozilla Public License 2.0 (MPL 2.0)** y las demás dependencias mantienen sus propias licencias. La licencia MIT de este proyecto no las reemplaza.
+La licencia MIT no cubre la marca, el icono ni el contenido de Patriorigen, que pertenecen a sus respectivos titulares. GeckoView se distribuye bajo la **Mozilla Public License 2.0 (MPL 2.0)** y las demás dependencias mantienen sus propias licencias.
